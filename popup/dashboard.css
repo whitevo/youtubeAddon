@@ -1,0 +1,146 @@
+body{
+    background:#f1f1f1;
+    color:#333;
+    font-family:arial;
+}
+.container{
+    width:1000px;
+    margin:10px auto;
+}
+
+.card{
+    position:relative;
+    box-shadow:0 0 3px #999;
+    padding:10px;
+    border-radius:3px;
+    background:#fff;
+    margin:10px;
+}
+
+.text-box{
+    padding:10px;
+    border:1px solid #f1f1f1;
+    background:#fff;
+}
+
+.btn{
+    cursor:pointer;
+    background:rgb(31, 165, 98);
+    color:#fff;
+    padding:10px 20px;
+    border:0;
+    font-weight:bold;
+    font-size:15px;
+    border-radius:3px;
+    display:inline-block;
+}
+
+.btn:disabled{
+    background:#999;
+}
+
+.refresh-btn{
+    position:absolute;
+    right:0px;
+    top:0px;
+    padding:10px;
+    cursor:pointer;
+}
+
+.center{
+    text-align:center;
+}
+.clearfix:before, .clearfix:after{
+    clear:both;
+    content:'';
+    display:table;
+}
+.half{
+    width:50%;
+    float:left;
+}
+
+.item-list{
+    max-height:500px;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+
+.list-item{
+    position:relative;
+    padding:10px;
+    border-bottom:1px solid #e1e1e1;
+    cursor:pointer;
+}
+.list-item:last-child{
+    border:0;
+}
+
+.list-item:hover{
+    background:#e1e1e1;
+}
+
+.list-item.selected{
+    background:#ff0000;
+    color:#fff;
+}
+
+.list-item:after{
+    clear:both;
+    display:table;
+    content:"";
+}
+.channel-logo{
+    float:left;
+    width:40px;
+    height:40px;
+    background:#777;
+}
+
+.video-thumbnail{
+    float:left;
+    width:20%;
+    background:#777;
+}
+
+.channel-logo img, .video-thumbnail img{
+    width:100%;
+}
+
+.item-title{
+    float:left;
+    width:75%;
+    margin-left:10px;
+    padding:10px 0;
+    text-align:left;
+}
+
+.video-title{
+    width:75%;
+    font-size:14px;
+}
+
+.loading-msg, .error-msg{
+    display:none;
+    padding:30px;
+}
+
+.select-video-btn{
+    position:absolute;
+    display:none;
+    bottom:2px;
+    right:2px;
+    background:green;
+    color:#fff;
+    cursor:pointer;
+    padding:10px 20px;
+    border-radius:50px;
+}
+
+.list-item:hover .select-video-btn{
+    display:block;
+}
+
+.authorized-state{
+    display:none;
+}
