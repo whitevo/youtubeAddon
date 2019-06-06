@@ -1,20 +1,41 @@
+
+/**
+ * Title : Youtube Firefox Addon
+ * Description : An addon for firefox to facilitate add latest video of their subscriptions to watch later. 
+ * Author : Amanjot Singh
+ * Email : aman2talk@gmail.com
+ * Version : 0.0.1
+ * Date : 7 Jun, 2019
+ */
+
+
 var token = '';
 var recurringTurn = 0;
 
 $(document).on('click', '.channel-item', function(){
 	resetVideoList();
-	$(this).parent().find('.selected').removeClass('selected');
-	$(this).addClass('selected')
-	$("#target-channel").html($(this).find('.channel-title').text());
+	if ($(this).hasClass('selected')) {
+		$(this).removeClass('selected');
+	} else {
+		$(this).addClass('selected')
+	}
+
+	let channelTitles = [];
+	let channelIds = [];
+	$('.channel-item.selected').each((i, channelItem) => {
+		channelTitles.push($(channelItem).find('.channel-title').text());
+		channelIds.push($(channelItem).data('channel-id'));
+	});
+
+	$("#target-channel").html(channelTitles.join());
 	getLocalToken().then((token) => {
-		let channelId = $(this).data('channel-id');
-		getChannelVideos(channelId);
+		getVideoListForChannels(channelIds);
 	});
 });
 
 
 $("#channel-list-reload").click(function(){
-	resetVideoList();
+	resetVideoList(true);
 	getLocalToken().then((token) => {
 		getSubscriptionList();
 	});
@@ -38,12 +59,12 @@ $("#confirm-btn").click(function(){
 	let promises = [];
 	let targetVideos = $("#channel-video-list .content-window .list-item.selected");
 	recurringTurn = 0;
-	recurringFun(targetVideos);
+	recurringFunc(targetVideos);
 	
 });
 
 
-function recurringFun(videos){
+function recurringFunc(videos){
 	let item = videos[recurringTurn];
 	let videoId = $(item).data('video-id');
 	$("#processing-msg").show();
@@ -55,22 +76,23 @@ function recurringFun(videos){
 			$("#percent-complete").html(percent);
 			recurringTurn++;
 			if (recurringTurn < videos.length) {
-				recurringFun(videos);
+				recurringFunc(videos);
 			} else {
 				// processed;
 				$("#processing-msg").hide();
 				$("#confirm-btn").show();
 				$("#percent-complete").html(0);
-				resetVideoList();
+				resetVideoList(true);
 				alert("Video added to watch later list successfully");
 			}
 		});
 	},0);
 }
 
-function resetVideoList(){
+function resetVideoList(resetCannelList){
 	$("#channel-video-list .content-window").text('No video available');
-	$("#channel-list .content-window .selected").removeClass('selected');
+	if (resetCannelList)
+		$("#channel-list .content-window .selected").removeClass('selected');
 	$("#target-channel").text("No channel selected");
 	$("#slected-video-msg").text("No video");
 	$("#confirm-btn").attr('disabled', true);
@@ -122,14 +144,8 @@ function getUserInfo() {
 }
 
 function getChannelVideos(channelId) {
-	let target = $("#channel-video-list");
-	target.find('.loading-msg').show();
-	target.find('.content-window, .error-msg').hide();
 	const url = "https://www.googleapis.com/youtube/v3/search?key={}&channelId="+channelId+"&part=snippet,id&order=date&maxResults=50";
-	fireApi(url).then((response)=>{
-		console.log("iiio", response);
-		buildChanelVideoList(response.items);
-	});
+	return fireApi(url).then(response => response.items);
 }
 
 function getSubscriptionList() {
@@ -197,6 +213,27 @@ function addVideoToWatchList(videoId) {
 }
 
 /***************** UI Manipulation**********************/
+
+
+function getVideoListForChannels(channels) {
+	let target = $("#channel-video-list");
+	target.find('.loading-msg').show();
+	target.find('.content-window, .error-msg').hide();
+	let allChannels = [];
+	channels.forEach((channelId, index) => {
+		allChannels.push(getChannelVideos(channelId));
+	});
+	Promise.all(allChannels).then(function(channelVideos) {
+		let videos = [].concat.apply([], channelVideos);
+		//sort all videos
+		videos.sort(function(a,b){
+			// Turn your strings into dates, and then subtract them
+			// to get a value that is either negative, positive, or zero.
+			return new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt);
+		});
+		buildChanelVideoList(videos);
+	});
+}
 
 function buildChanelList(items){
 	var listHtml = '';
