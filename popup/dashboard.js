@@ -47,12 +47,31 @@ $(document).on('click', '.select-video-btn', function(){
 	let allItems = $(this).parents('.item-list').find('.video-item');
 	allItems.removeClass('selected');
 	allItems.slice(0, currentItemIndex + 1).addClass('selected');
-	let selectedVidCount = $(this).parents('.item-list').find('.video-item.selected').length;
+	updateCount();
+});
+
+
+$(document).on('click', '.remove-video-btn', function(){
+	let currentItemIndex = $(this).parents('.list-item').index();
+	let allItems = $(this).parents('.item-list').find('.video-item');
+	allItems.slice(0, currentItemIndex + 1).removeClass('selected');
+	updateCount();
+});
+
+
+$(document).on('click', '.cross-btn', function(){
+	let currentItem = $(this).parents('.list-item');
+	$(currentItem).removeClass('selected');
+	updateCount();
+});
+
+
+function updateCount() {
+	let selectedVidCount = $('#channel-video-list').find('.video-item.selected').length;
 	let msg = selectedVidCount ? selectedVidCount + ' videos' : 'No video';
 	$("#slected-video-msg").text(msg);
 	$("#confirm-btn").attr('disabled', false);
-});
-
+}
 
 $("#confirm-btn").click(function(){
 	$(this).hide();
@@ -68,11 +87,32 @@ function recurringFunc(videos){
 	let item = videos[recurringTurn];
 	let videoId = $(item).data('video-id');
 	$("#processing-msg").show();
-	$("#confirm-btn").hide();
+	$("#confirm-btn, #error-msg").hide();
 	setTimeout( () => {
 		addVideoToWatchList(videoId).then(() => {
-			let percent = Math.round(((recurringTurn + 1)/videos.length)*100);
-			console.log("percwent",recurringTurn, videos.length, percent, $("#percent-complete").html());
+			uploadSuccess(videos)
+		}, (error) => {
+				// conflict status
+				// Video is already added to watch later list
+				// so it may be considered as success
+				// so bypassing this error handler and 
+				// returning to recurring flow again.
+				if (error === 409) {
+					uploadSuccess(videos)
+				} else {
+					$("#processing-msg").hide();
+					$("#confirm-btn, #error-msg").show();
+					$("#error-msg").html("Error occurred");
+					$("#confirm-btn").attr('disabled', false);
+					$("#percent-complete").html(0);
+					alert("Some Error Occurred");
+				}
+		});
+	},0);
+}
+
+function uploadSuccess(videos){
+	let percent = Math.round(((recurringTurn + 1)/videos.length)*100);
 			$("#percent-complete").html(percent);
 			recurringTurn++;
 			if (recurringTurn < videos.length) {
@@ -85,8 +125,6 @@ function recurringFunc(videos){
 				resetVideoList(true);
 				alert("Video added to watch later list successfully");
 			}
-		});
-	},0);
 }
 
 function resetVideoList(resetCannelList){
@@ -99,7 +137,6 @@ function resetVideoList(resetCannelList){
 }
 
 $("#authorize-btn").click(function(){
-	console.log('execute pressed');
 	signinAndFetch();	
 });
 
@@ -107,9 +144,7 @@ function signinAndFetch(){
 	getAccessToken()
 		.then((accessToken) => {
 			token = accessToken;
-			browser.storage.local.set({yt_token: accessToken}, function() {
-				console.log('Value is set to ', accessToken);
-			});
+			browser.storage.local.set({yt_token: accessToken}, function() {});
 			return getUserInfo();
 		})
 		.then(notifyUser)
@@ -154,7 +189,6 @@ function getSubscriptionList() {
 	target.find('.content-window, .error-msg').hide();
 	const url = 'https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true&maxResults=50';
 	fireApi(url).then((response)=>{
-		console.log("iiio", response);
 		buildChanelList(response.items);
 	});
 	
@@ -169,7 +203,6 @@ function getLocalToken() {
 
 function fireApi(url, method, body) {
 	let accessToken = token;
-	console.log("I am using this token : ", token);
 	const requestURL = url;
 	const requestHeaders = new Headers();
 	requestHeaders.append('Authorization', 'Bearer ' + accessToken);
@@ -268,11 +301,17 @@ function buildChanelVideoList(items){
 	
 		listHtml += `
 			<div class="video-item list-item" data-video-id="${videoID}">
+				<div class="cross-btn">
+					<i class="far fa-times-circle" title="Unselect this video"></i>
+				</div>
 				<div class="video-thumbnail"><img src="${thumbnail}"/></div>
 				<div class="video-title item-title">
 					${videoTitle}
 				</div>
-				<div class="select-video-btn" title="Select this and all above">Start from here</div>
+				<div class="btn-wrap clearfix">
+					<div class="select-video-btn" title="Select this and all above">Start from here</div>
+					<div class="remove-video-btn" title="Remove this and all above">Remove from here</div>
+				</div>
 			</div>
 		`;
 
