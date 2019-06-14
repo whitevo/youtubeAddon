@@ -1,7 +1,7 @@
 /* exported getAccessToken */
 
 const REDIRECT_URL = browser.identity.getRedirectURL();
-const CLIENT_ID = "855690068987-a92hdlufvephemvko8q08khu5juc862t.apps.googleusercontent.com";
+const CLIENT_ID = "762710521126-qm52c82nopnd2e2bhf6km0uvd7mm0987.apps.googleusercontent.com";
 const SCOPES = ["openid", "email", "profile", "https://www.googleapis.com/auth/youtube"];
 const AUTH_URL =
 `https://accounts.google.com/o/oauth2/auth\
