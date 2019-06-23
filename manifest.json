@@ -1,5 +1,5 @@
 {
-	"author" : "Slagus",
+	"author" : "Tevo",
 	"manifest_version": 2,
 	"name": "Youtube Helper",
 	"version": "1.0",
@@ -16,16 +16,13 @@
 
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "tevo_youtube_helper@slagus.com",
-			"strict_min_version": "42.0"
+			"id": "tevo_youtube_helper@slagus.com"
 		}
 	},
 	
 	"browser_action": {
 		"default_icon": "icons/youtube-helper-48.png"
 	},
-
-	"content_security_policy": "script-src 'self' https://*.google.com; object-src 'self'",
 
 	"permissions": [
 		"https://www.googleapis.com/*",
