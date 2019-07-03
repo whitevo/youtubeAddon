@@ -1,7 +1,7 @@
 {
 	"author" : "Tevo",
 	"manifest_version": 2,
-	"name": "Youtube Helper",
+	"name": "Youtube Playlist Sorter",
 	"version": "1.0",
 
 	"background": {
@@ -11,7 +11,7 @@
 	"description": "Helps to add your subscription list's latest video to watch later.",
 
 	"icons": {
-		"48": "icons/youtube-helper-48.png"
+		"48": "icons/icon.svg"
 	},
 
 	"browser_specific_settings": {
@@ -21,7 +21,7 @@
 	},
 	
 	"browser_action": {
-		"default_icon": "icons/youtube-helper-48.png"
+		"default_icon": "icons/icon.svg"
 	},
 
 	"permissions": [

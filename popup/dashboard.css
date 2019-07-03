@@ -8,6 +8,32 @@ body{
     margin:10px auto;
 }
 
+.branding{
+    padding:20px;
+}
+
+.branding .logo-text{
+    display:inline-block;
+    vertical-align:top;
+    font-family:sans-serif;
+    font-weight:normal;
+    font-size:30px;
+    margin:20px;
+}
+
+.header-menu{
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+
+.header-menu a{
+    display:inline-block;
+    padding:10px;
+    text-decoration:none;
+    color:#555;
+}
+
 .card{
     position:relative;
     box-shadow:0 0 3px #999;
