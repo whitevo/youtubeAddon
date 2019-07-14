@@ -1,7 +1,7 @@
 {
-	"author" : "Slagus",
+	"author" : "Tevo",
 	"manifest_version": 2,
-	"name": "Youtube Helper",
+	"name": "Youtube Playlist Sorter",
 	"version": "1.0",
 
 	"background": {
@@ -11,21 +11,18 @@
 	"description": "Helps to add your subscription list's latest video to watch later.",
 
 	"icons": {
-		"48": "icons/youtube-helper-48.png"
+		"48": "icons/icon.svg"
 	},
 
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "tevo_youtube_helper@slagus.com",
-			"strict_min_version": "42.0"
+			"id": "tevo_youtube_helper@slagus.com"
 		}
 	},
 	
 	"browser_action": {
-		"default_icon": "icons/youtube-helper-48.png"
+		"default_icon": "icons/icon.svg"
 	},
-
-	"content_security_policy": "script-src 'self' https://*.google.com; object-src 'self'",
 
 	"permissions": [
 		"https://www.googleapis.com/*",

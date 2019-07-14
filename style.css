@@ -1,0 +1,104 @@
+
+body{
+    margin:0;
+    background:#fff;
+    color:#444;
+    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Just Another Hand', cursive;
+    font-family: 'Indie Flower', cursive;*/
+}
+
+img{
+    max-width:100%;
+}
+
+.hero-section{
+    background:url(images/abstract-background-design.jpg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    height:500px;
+
+}
+
+.hero-header{
+    background:#fff;
+    padding:10px;
+}
+
+.hero-head-text{
+    margin-top:100px;
+    margin-bottom:50px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size:30px;
+    font-weight:normal;
+}
+
+.hero-image-wrap{
+    width:500px;
+    max-width:90%;
+}
+.hero-image{
+    width:100%;
+}
+
+.cwt{
+    color:#fff;
+}
+
+.bgr{
+    background-color:#e1e1e1;
+}
+
+.bgg{
+    background:#ac9;
+}
+
+.center{
+    text-align:center;
+}
+
+.img-wrap{
+    display:inline-block;
+    padding:10px;
+    background:#fff;
+    border-radius:4px;
+    box-shadow:0 1px 30px rgba(0,0,0,0.12), 0 1px 42px rgba(0,0,0,0.24)
+}
+
+.section{
+    padding:50px;
+}
+
+.section-title{
+    padding:10px;
+    font-weight:normal;
+    margin-top:60px;
+    margin-bottom:100px;
+}
+
+.white-links{
+    color:#fff;
+    display:inline-block;
+    transition:.3s all;
+}
+
+.white-links:hover{
+    color:#fff;
+    text-decoration:none;
+    transform:scale(1.2);
+}
+
+.no-pad{
+    padding:0;
+}
+
+.m-t-50{
+    margin-top:50px;
+}
+
+@media screen and (max-width:767px) {
+    .md-m-t-50{
+        margin-top:50px;
+    }
+}

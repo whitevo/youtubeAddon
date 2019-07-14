@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-<meta charset="utf-8">
+	<link rel="icon" href="/icons/icon.svg"/>
+	<title>Dashboard | Youtube Playlist Sorter</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="dashboard.css"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-	
+	<script src="jquery-3.4.1.js"></script>
 </head>
 
 	
 <body>
   <div class="container">
-	
 		<div class="card center">
+			<div class="branding center">
+				<img style="width:70px;" src="/icons/icon.svg">
+				<div class="logo-text"><b>Youtube</b> Playlist Sorter</div>
+			</div>
+			<div class="header-menu">
+				<a target="_blank" href="/index.html">How To?</a>
+			</div>
 			<h3>Google Account</h3>
 			<div class="not-authorized-state">
 				<h5>Authorize your Google Account for Youtube api access.</h5>
@@ -72,8 +79,7 @@
 		</div>
   </div>
   
-	<script src="authorize.js"></script>  
-	<script src="jquery-3.4.1.js"></script>
+	<script src="authorize.js"></script>
 	<script src="dashboard.js"></script>
 	
   
