@@ -1,8 +1,8 @@
 {
 	"author" : "Tevo",
 	"manifest_version": 2,
-	"name": "Youtube Watch Later Manager",
-	"version": "3.0",
+	"name": "Youtube Playlist Sorter",
+	"version": "4",
 
 	"background": {
 		"page": "background.html"

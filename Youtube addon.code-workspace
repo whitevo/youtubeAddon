@@ -1,7 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "youtube addon"
+			"path": "."
 		}
-	]
+	],
+	"settings": {}
 }

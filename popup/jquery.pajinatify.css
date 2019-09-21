@@ -1,0 +1,61 @@
+.pajinatify {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  overflow: hidden; }
+  .pajinatify.pajinatify__rtl {
+    direction: ltr;
+    justify-content: unset; }
+  .pajinatify > span {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 2;
+    color: #111;
+    text-decoration: none;
+    border: 1px solid #e7e7e7;
+    border-right-color: #fff;
+    position: relative;
+    background-color: #fff; }
+    .pajinatify > span:last-child {
+      border-right-color: #e7e7e7; }
+    .pajinatify > span.pajinatify__button {
+      cursor: pointer; }
+      .pajinatify > span.pajinatify__button:hover, .pajinatify > span.pajinatify__button:focus {
+        background-color: #f0f0f0;
+        border-right-color: #f0f0f0; }
+    .pajinatify > span.pajinatify__current {
+      background-color: #535355;
+      border-color: #535355;
+      color: #fff;
+      cursor: default;
+      pointer-events: none; }
+    .pajinatify > span.pajinatify__arrow:before {
+      content: '';
+      display: block;
+      border-right: 1px solid #999;
+      border-bottom: 1px solid #999;
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -4px; }
+    .pajinatify > span.pajinatify__arrow.arrow__next {
+      right: 0; }
+      .pajinatify > span.pajinatify__arrow.arrow__next:before {
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        margin-left: -6px; }
+    .pajinatify > span.pajinatify__arrow.arrow__prev {
+      left: 0; }
+      .pajinatify > span.pajinatify__arrow.arrow__prev:before {
+        -webkit-transform: rotate(135deg);
+                transform: rotate(135deg);
+        margin-left: -4px; }

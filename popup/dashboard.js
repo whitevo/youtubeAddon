@@ -178,20 +178,43 @@ function getUserInfo() {
 	return fireApi(url);
 }
 
-function getChannelVideos(channelId) {
-	const url = "https://www.googleapis.com/youtube/v3/search?key={}&channelId="+channelId+"&part=snippet,id&order=date&maxResults=50";
-	return fireApi(url).then(response => response.items);
+function getChannelVideos(channelId, date, nextPageToken) {
+	const page = nextPageToken ? '&pageToken='+nextPageToken : '';
+	const url = "https://www.googleapis.com/youtube/v3/search?key={}&channelId="+channelId+"&part=snippet,id&order=date&publishedAfter="+date+"&maxResults=50"+page;
+	return fireApi(url).then(response => {
+		let items = response.items;
+		if (response.nextPageToken) {
+			return getChannelVideos(channelId, date, response.nextPageToken).then(newItems => items.concat(newItems));
+		} else { 
+			return items;
+		}
+	});
+}
+
+function getSubscription(nextPageToken){
+	const page = nextPageToken ? '&pageToken=' + nextPageToken : '';
+	const url = 'https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true&maxResults=50'+page;
+	return fireApi(url).then((response)=>{
+		let items = response.items;
+		if (response.nextPageToken) {
+			console.log('going deep');
+			return getSubscription(response.nextPageToken).then( newItems => items.concat(newItems));
+		} else {
+			console.log('simple');
+			return items;
+		}
+		
+	});
 }
 
 function getSubscriptionList() {
 	let target = $("#channel-list");
 	target.find('.loading-msg').show();
 	target.find('.content-window, .error-msg').hide();
-	const url = 'https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true&maxResults=50';
-	fireApi(url).then((response)=>{
-		buildChanelList(response.items);
+	getSubscription().then(items => {
+		console.log('loaded Items', items)
+		buildChanelList(items);
 	});
-	
 }
 
 function getLocalToken() {
@@ -253,8 +276,13 @@ function getVideoListForChannels(channels) {
 	target.find('.loading-msg').show();
 	target.find('.content-window, .error-msg').hide();
 	let allChannels = [];
+	
+	let filterDate = new Date();
+	filterDate = filterDate.setDate(filterDate.getDate() - 14); // how many days goes into past
+	filterDate = new Date(filterDate).toISOString();
+	
 	channels.forEach((channelId, index) => {
-		allChannels.push(getChannelVideos(channelId));
+		allChannels.push(getChannelVideos(channelId, filterDate));
 	});
 	Promise.all(allChannels).then(function(channelVideos) {
 		let videos = [].concat.apply([], channelVideos);
