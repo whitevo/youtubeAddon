@@ -1,0 +1,58 @@
+Company website
+https://whitevo.github.io/youtubeAddon/
+
+Describe your organization's work as it relates to YouTube *
+I am a simple youtube user who hired a freelancer to create an addon to make managing my youtube subscriptions a bit better.
+
+Please list all your API Client(s) *
+YouTube Data API v3
+
+Please list all the project numbers used for each of your API Client(s) *
+youtube-addon-242514
+
+Where can we find each API Client(s)? *
+https://addons.mozilla.org/en-US/firefox/addon/youtube-helper/, https://github.com/whitevo/youtubeAddon
+
+If there is a log-in required to access the API client, please provide a demo account and instructions on how to access the API Client
+https://www.youtube.com/watch?v=jCRosIiaGEY, demo account name: Demo, demo account password: fjrkG9cu5, demo account email: tevosaks@fliistrade.com
+
+Explain how your API Client is used by your users *
+I log in.
+Then I selected the channels where I would like like to add the video to my watch later.
+Then I select specific videos what I actually want to add.
+Finally, press confirm.
+And that's it.
+
+Please provide more detail on how many users have authenticated to your API Client, and how authenticated data is used in or by the API Client
+I think only I am authenticated right now.
+Authentication is used to get faster access to the client youtube information and then I don't have to have my own login method, but its simply 1 click.
+
+Which API Client are you requesting a quota increase for? *
+Youtube addon 1
+
+What API project number are you requesting increased quota for? *
+242514
+
+Justification for requesting additional quota? *
+Right now with 10k quotes, I can add around ~40-140 vides
+Weekly I have ~200 videos to add and I use this addon weekly.
+To avoid errors I alone need 50k quotes.
+However, if somebody else starts using it, then I would need double the amount.
+And if he has even more videos then it will get even grazier.
+But for now, I just think ahead for about ~10 ppl
+
+Explain in detail how you use YouTube API Services today *
+I log in.
+Then I selected the channels where I would like like to add the video to my watch later.
+Then I select specific videos what I actually want to add.
+Finally, I press the button to confirm.
+And that's it.
+
+What functionality would your API client be lacking without more quota? *
+I will start getting errors midway of adding videos because all the previous video sorting and capturing uses most of it.
+Also, I could not use that for more users than one.
+Because right now I can't even sort 20% of my videos with single go (If I forget using this addon for 3 weeks)
+
+What potential workarounds would you use to compensate for less quota? (ex. decreased feature set, estimations, smaller sampling) *
+I have talked about this with a freelancer and he could cache some videos, but the request would still have to be made, so he sais he cant optimize it even further.
+Simply need more quotes.
