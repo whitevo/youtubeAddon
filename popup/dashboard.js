@@ -180,7 +180,7 @@ function getUserInfo() {
 
 function getChannelVideos(channelId, date, nextPageToken) {
 	const page = nextPageToken ? '&pageToken='+nextPageToken : '';
-	const url = "https://www.googleapis.com/youtube/v3/search?key={}&channelId="+channelId+"&part=snippet,id&order=date&publishedAfter="+date+"&maxResults=50"+page;
+	const url = "https://www.googleapis.com/youtube/v3/search?key={}&channelId="+channelId+"&part=snippet,id&type=video&order=date&publishedAfter="+date+"&maxResults=50"+page;
 	return fireApi(url).then(response => {
 		let items = response.items;
 		if (response.nextPageToken) {
@@ -278,13 +278,14 @@ function getVideoListForChannels(channels) {
 	let allChannels = [];
 	
 	let filterDate = new Date();
-	filterDate = filterDate.setDate(filterDate.getDate() - 14); // how many days goes into past
+	filterDate = filterDate.setDate(filterDate.getDate() - 14);  // how many days goes into past
 	filterDate = new Date(filterDate).toISOString();
 	
 	channels.forEach((channelId, index) => {
 		allChannels.push(getChannelVideos(channelId, filterDate));
 	});
 	Promise.all(allChannels).then(function(channelVideos) {
+		console.log("videos", channelVideos);
 		let videos = [].concat.apply([], channelVideos);
 		//sort all videos
 		videos.sort(function(a,b){
